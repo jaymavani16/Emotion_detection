@@ -31,3 +31,55 @@ stages:
       md5: b05f56f2e4437e01123455f3e0edc27e.dir
       size: 675133
       nfiles: 2
+  feature_engineering:
+    cmd: python src/features/build_features.py
+    deps:
+    - path: data/processed
+      hash: md5
+      md5: b05f56f2e4437e01123455f3e0edc27e.dir
+      size: 675133
+      nfiles: 2
+    - path: src/features/build_features.py
+      hash: md5
+      md5: c0168bcbf1e87fd2492b08fa8eb0985c
+      size: 1329
+    outs:
+    - path: data/features
+      hash: md5
+      md5: d6af4e6ee1708c216cb485e5c7173398.dir
+      size: 295514888
+      nfiles: 2
+  model_building:
+    cmd: python src/models/train_model.py
+    deps:
+    - path: data/features
+      hash: md5
+      md5: d6af4e6ee1708c216cb485e5c7173398.dir
+      size: 295514888
+      nfiles: 2
+    - path: src/models/train_model.py
+      hash: md5
+      md5: 451d79af8563c104512d2a7160ac6807
+      size: 445
+    outs:
+    - path: model.pkl
+      hash: md5
+      md5: 0e3b1ed0882cf18f47b0533d591ced1a
+      size: 133261
+  model_evaluation:
+    cmd: python src/models/predict_model.py
+    deps:
+    - path: data/features
+      hash: md5
+      md5: d6af4e6ee1708c216cb485e5c7173398.dir
+      size: 295514888
+      nfiles: 2
+    - path: src/models/predict_model.py
+      hash: md5
+      md5: d0294dcc29832c43fb59d8cb5d4108a8
+      size: 938
+    outs:
+    - path: metrics.json
+      hash: md5
+      md5: e7515ccec80fb2d7735122a43bca0b9c
+      size: 145

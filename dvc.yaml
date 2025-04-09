@@ -12,3 +12,24 @@ stages:
     - src/data/data_preprocessing.py
     outs:
     - data/processed
+  feature_engineering:
+    cmd: python src/features/build_features.py
+    deps:
+    - data/processed
+    - src/features/build_features.py
+    outs:
+    - data/features
+  model_building:
+    cmd: python src/models/train_model.py
+    deps:
+    - data/features
+    - src/models/train_model.py
+    outs:
+    - model.pkl
+  model_evaluation:
+    cmd: python src/models/predict_model.py
+    deps:
+    - data/features
+    - src/models/predict_model.py
+    outs:
+    - metrics.json
