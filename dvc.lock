@@ -5,8 +5,12 @@ stages:
     deps:
     - path: src/data/make_dataset.py
       hash: md5
-      md5: f8c562a2f1f19c44b52e581dd2684486
-      size: 942
+      md5: d50025aa245ec40c532c9c173df133b2
+      size: 1059
+    params:
+      params.yaml:
+        make_dataset.random_state: 42
+        make_dataset.test_size: 0.2
     outs:
     - path: data/raw
       hash: md5
@@ -41,38 +45,45 @@ stages:
       nfiles: 2
     - path: src/features/build_features.py
       hash: md5
-      md5: c0168bcbf1e87fd2492b08fa8eb0985c
-      size: 1329
+      md5: 24f7ad7b0726e3b792f1399e6c498a81
+      size: 1459
+    params:
+      params.yaml:
+        build_features.max_features: 1000
     outs:
     - path: data/features
       hash: md5
-      md5: d6af4e6ee1708c216cb485e5c7173398.dir
-      size: 295514888
+      md5: 56e6912217981354de53f55ab98061ed.dir
+      size: 20836568
       nfiles: 2
   model_building:
     cmd: python src/models/train_model.py
     deps:
     - path: data/features
       hash: md5
-      md5: d6af4e6ee1708c216cb485e5c7173398.dir
-      size: 295514888
+      md5: 56e6912217981354de53f55ab98061ed.dir
+      size: 20836568
       nfiles: 2
     - path: src/models/train_model.py
       hash: md5
-      md5: 451d79af8563c104512d2a7160ac6807
-      size: 445
+      md5: dfd1d50f09d5764597e758c1d7b2a371
+      size: 600
+    params:
+      params.yaml:
+        train_model.learning_rate: 0.1
+        train_model.n_estimators: 1000
     outs:
     - path: model.pkl
       hash: md5
-      md5: 0e3b1ed0882cf18f47b0533d591ced1a
-      size: 133261
+      md5: 1c4234a664190df298a97d20e1597a0a
+      size: 1210963
   model_evaluation:
     cmd: python src/models/predict_model.py
     deps:
     - path: data/features
       hash: md5
-      md5: d6af4e6ee1708c216cb485e5c7173398.dir
-      size: 295514888
+      md5: 56e6912217981354de53f55ab98061ed.dir
+      size: 20836568
       nfiles: 2
     - path: src/models/predict_model.py
       hash: md5
@@ -81,5 +92,5 @@ stages:
     outs:
     - path: metrics.json
       hash: md5
-      md5: e7515ccec80fb2d7735122a43bca0b9c
-      size: 145
+      md5: 5c932d8d937da50ac735c7f39451a164
+      size: 144
