@@ -7,6 +7,7 @@ import os
 from sklearn.ensemble import GradientBoostingClassifier
 
 import yaml
+import sys
 
 
 def load_params(params_path: str) -> float:
@@ -115,15 +116,17 @@ def save_model(model: GradientBoostingClassifier, output_path: str = 'model.pkl'
         Exception: If saving the model fails.
     """
     try:
-        # Ensure the directory exists
-        os.makedirs(os.path.dirname(output_path), exist_ok=True)
+        dir_path = os.path.dirname(output_path)
+        if dir_path:  # Only try to create if it's not an empty string
+            os.makedirs(dir_path, exist_ok=True)
 
         with open(output_path, 'wb') as file:
             pickle.dump(model, file)
-        print(f"Model saved to {output_path}")
+        print(f"✅ Model saved to {output_path}")
     except Exception as e:
-        print(f"Failed to save model: {e}")
+        print(f"🔴 Failed to save model: {e}")
         raise
+
 
 
 def main():
@@ -137,13 +140,16 @@ def main():
             learning_rate=learning_rate
         )
         save_model(model=clf)
-        print("Model training and saving completed successfully.")
+        print("✅ Model training and saving completed successfully.")
     except FileNotFoundError as fnf_error:
-        print(f"File not found: {fnf_error}")
+        print(f"🔴 File not found: {fnf_error}")
+        sys.exit(1)
     except ValueError as val_error:
-        print(f"Value error during training: {val_error}")
+        print(f"🔴 Value error during training: {val_error}")
+        sys.exit(1)
     except Exception as e:
-        print(f"An error occurred in main(): {e}")
+        print(f"🔴 An error occurred in main(): {e}")
+        sys.exit(1)
 
 
 if __name__ == '__main__':
