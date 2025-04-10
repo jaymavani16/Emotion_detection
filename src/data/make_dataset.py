@@ -2,6 +2,9 @@ import numpy as np
 import pandas as pd
 import os
 from sklearn.model_selection import train_test_split
+import yaml
+
+params = yaml.safe_load(open('params.yaml','r'))['make_dataset']
 
 # reading data from source url
 df = pd.read_csv('https://raw.githubusercontent.com/campusx-official/jupyter-masterclass/main/tweet_emotions.csv')
@@ -14,7 +17,7 @@ final_df = df[df['sentiment'].isin(['happiness','sadness'])]
 final_df['sentiment'].replace({'happiness':1, 'sadness':0},inplace=True)
 
 # performing train,test split
-train_data, test_data = train_test_split(final_df, test_size=0.2, random_state=42)
+train_data, test_data = train_test_split(final_df, test_size=params['test_size'], random_state=params['random_state'])
 
 # storing our split data in loccal directory in this project
 data_path = os.path.join('data','raw')
