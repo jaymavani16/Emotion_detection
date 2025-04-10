@@ -66,8 +66,8 @@ stages:
       nfiles: 2
     - path: src/models/train_model.py
       hash: md5
-      md5: d3e38f079be2d29432a69a0071fa0864
-      size: 1601
+      md5: 87dd8c221c7bf455678deba51713391a
+      size: 5119
     params:
       params.yaml:
         train_model.learning_rate: 0.1
@@ -75,8 +75,8 @@ stages:
     outs:
     - path: model.pkl
       hash: md5
-      md5: 9e0fff2e1e455cf355b716e096bd58d0
-      size: 1209666
+      md5: a616332a3c2e99ef57930ab4fcb4ec2e
+      size: 1206786
   model_evaluation:
     cmd: python src/models/predict_model.py
     deps:
@@ -87,10 +87,10 @@ stages:
       nfiles: 2
     - path: src/models/predict_model.py
       hash: md5
-      md5: 959c0b00b6741e776a3ea8dd6fcd5910
-      size: 2070
+      md5: 57bc2dea6458154cfd68c8f27c0c59a0
+      size: 4403
     outs:
     - path: metrics.json
       hash: md5
-      md5: ca68f493dd6ba6a623f3b4bc0588b124
-      size: 144
+      md5: 088c7cd3cbca97db2e2613d167d4cbcf
+      size: 145
