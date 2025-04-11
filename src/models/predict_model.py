@@ -10,9 +10,9 @@ import json
 try:
     test_data = pd.read_csv('./data/features/test_bow.csv')
 except FileNotFoundError as e:
-    print(f"🔴 Data file not found: {e}")
+    print(f"Data file not found: {e}")
 except Exception as e:
-    print(f"🔴 Error loading data: {e}")
+    print(f"Error loading data: {e}")
 
 
 def test_data_splitting(test_data: pd.DataFrame) -> tuple:

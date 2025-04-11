@@ -27,21 +27,21 @@ def load_params(params_path: str) -> float:
         learning_rate = params['train_model']['learning_rate']
         return n_estimators,learning_rate    
     except FileNotFoundError:
-        raise FileNotFoundError(f"🔴 Parameters file not found at: {params_path}")
+        raise FileNotFoundError(f"Parameters file not found at: {params_path}")
     except KeyError as e:
-        raise KeyError(f"🔴 Missing key in YAML config: {e}")
+        raise KeyError(f"Missing key in YAML config: {e}")
     except yaml.YAMLError as e:
-        raise Exception(f"🔴 Error parsing YAML file: {e}")
+        raise Exception(f"Error parsing YAML file: {e}")
     except Exception as e:
-        raise Exception(f"🔴 Unexpected error while loading parameters: {e}")
+        raise Exception(f"Unexpected error while loading parameters: {e}")
 
 # fetching the data
 try:
     train_data = pd.read_csv('./data/features/train_bow.csv')
 except FileNotFoundError as e:
-    print(f"🔴 Data file not found: {e}")
+    print(f"Data file not found: {e}")
 except Exception as e:
-    print(f"🔴 Error loading data: {e}")
+    print(f"Error loading data: {e}")
 
 
 def data_splitiing(train_data: pd.DataFrame) -> tuple[np.ndarray, np.ndarray]:
@@ -122,9 +122,9 @@ def save_model(model: GradientBoostingClassifier, output_path: str = 'model.pkl'
 
         with open(output_path, 'wb') as file:
             pickle.dump(model, file)
-        print(f"✅ Model saved to {output_path}")
+        print(f"Model saved to {output_path}")
     except Exception as e:
-        print(f"🔴 Failed to save model: {e}")
+        print(f"Failed to save model: {e}")
         raise
 
 
@@ -140,15 +140,15 @@ def main():
             learning_rate=learning_rate
         )
         save_model(model=clf)
-        print("✅ Model training and saving completed successfully.")
+        print("Model training and saving completed successfully.")
     except FileNotFoundError as fnf_error:
-        print(f"🔴 File not found: {fnf_error}")
+        print(f"File not found: {fnf_error}")
         sys.exit(1)
     except ValueError as val_error:
-        print(f"🔴 Value error during training: {val_error}")
+        print(f"Value error during training: {val_error}")
         sys.exit(1)
     except Exception as e:
-        print(f"🔴 An error occurred in main(): {e}")
+        print(f"An error occurred in main(): {e}")
         sys.exit(1)
 
 

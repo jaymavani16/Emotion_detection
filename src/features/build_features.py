@@ -15,16 +15,16 @@ def load_params(params_path: str) -> float:
         max_features = params['build_features']['max_features']
         return max_features
     except FileNotFoundError:
-        raise FileNotFoundError(f"🔴 Parameters file not found at: {params_path}")
+        raise FileNotFoundError(f"Parameters file not found at: {params_path}")
 
     except KeyError as e:
-        raise KeyError(f"🔴 Missing key in YAML config: {e}")
+        raise KeyError(f"Missing key in YAML config: {e}")
 
     except yaml.YAMLError as e:
-        raise Exception(f"🔴 Error parsing YAML file: {e}")
+        raise Exception(f"Error parsing YAML file: {e}")
 
     except Exception as e:
-        raise Exception(f"🔴 Unexpected error while loading parameters: {e}")
+        raise Exception(f"Unexpected error while loading parameters: {e}")
     
 # filling the missing values, It is generally a part of data preprocessing but we are practicing pipeline building so i am doing it here.
 try:

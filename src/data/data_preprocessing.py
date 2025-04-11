@@ -12,16 +12,16 @@ try:
     nltk.download('wordnet')
     nltk.download('stopwords')
 except Exception as e:
-    print(f"🔴 Failed to download NLTK resources: {e}")
+    print(f"Failed to download NLTK resources: {e}")
 
 # Load the data
 try:
     train_data = pd.read_csv('./data/raw/train.csv')
     test_data = pd.read_csv('./data/raw/test.csv')
 except FileNotFoundError as e:
-    print(f"🔴 Data file not found: {e}")
+    print(f"Data file not found: {e}")
 except Exception as e:
-    print(f"🔴 Error loading data: {e}")
+    print(f"Error loading data: {e}")
 
 
 def lemmatization(text: str) -> str:
@@ -40,7 +40,7 @@ def lemmatization(text: str) -> str:
         lemmatized_tokens = [lemmatizer.lemmatize(token) for token in tokens]
         return " ".join(lemmatized_tokens)
     except Exception as e:
-        print(f"🔴 Error during lemmatization: {e}")
+        print(f"Error during lemmatization: {e}")
         return text  # Return original text if error occurs
 
 
@@ -60,7 +60,7 @@ def remove_stop_words(text: str) -> str:
         filtered_words = [word for word in words if word not in stop_words]
         return " ".join(filtered_words)
     except Exception as e:
-        print(f"🔴 Error in removing stop words: {e}")
+        print(f"Error in removing stop words: {e}")
         return text
 
 

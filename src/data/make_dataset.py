@@ -23,13 +23,13 @@ def load_parameters(params_path: str) -> tuple[float, int]:
         random_state = params['make_dataset']['random_state']
         return test_size, random_state
     except FileNotFoundError:
-        raise FileNotFoundError(f"🔴 Parameters file not found at: {params_path}")
+        raise FileNotFoundError(f"Parameters file not found at: {params_path}")
     except KeyError as e:
-        raise KeyError(f"🔴 Missing key in YAML config: {e}")
+        raise KeyError(f"Missing key in YAML config: {e}")
     except yaml.YAMLError as e:
-        raise Exception(f"🔴 Error parsing YAML file: {e}")
+        raise Exception(f"Error parsing YAML file: {e}")
     except Exception as e:
-        raise Exception(f"🔴 Unexpected error while loading parameters: {e}")
+        raise Exception(f"Unexpected error while loading parameters: {e}")
 
 
 def load_data(data_url: str) -> pd.DataFrame:
@@ -46,11 +46,11 @@ def load_data(data_url: str) -> pd.DataFrame:
         df = pd.read_csv(data_url)
         return df
     except FileNotFoundError:
-        raise FileNotFoundError(f"🔴 The file was not found at: {data_url}")
+        raise FileNotFoundError(f"The file was not found at: {data_url}")
     except pd.errors.ParserError as e:
-        raise Exception(f"🔴 Error parsing CSV file: {e}")
+        raise Exception(f"Error parsing CSV file: {e}")
     except Exception as e:
-        raise Exception(f"🔴 Unexpected error while loading data: {e}")
+        raise Exception(f"Unexpected error while loading data: {e}")
 
 
 def preprocessed_data(df: pd.DataFrame) -> pd.DataFrame:
@@ -75,9 +75,9 @@ def preprocessed_data(df: pd.DataFrame) -> pd.DataFrame:
         final_df['sentiment'].replace({'happiness': 1, 'sadness': 0}, inplace=True)
         return final_df
     except KeyError as e:
-        raise KeyError(f"🔴 Missing expected column: {e}")
+        raise KeyError(f"Missing expected column: {e}")
     except Exception as e:
-        raise Exception(f"🔴 Error during preprocessing: {e}")
+        raise Exception(f"Error during preprocessing: {e}")
 
 
 def save_data(data_path: str, train_data: pd.DataFrame, test_data: pd.DataFrame) -> None:
@@ -102,43 +102,43 @@ def save_data(data_path: str, train_data: pd.DataFrame, test_data: pd.DataFrame)
         train_data.to_csv(train_file, index=False)
         test_data.to_csv(test_file, index=False)
 
-        print(f"✅ Data saved successfully to: {train_file} and {test_file}")
+        print(f"Data saved successfully to: {train_file} and {test_file}")
     except Exception as e:
-        raise Exception(f"🔴 Error saving data: {e}")
+        raise Exception(f"Error saving data: {e}")
 
 
 def main():
     try:
         test_size, random_state = load_parameters(params_path='params.yaml')
     except Exception as e:
-        print(f"🔴 Failed to load parameters: {e}")
+        print(f"Failed to load parameters: {e}")
         return
 
     try:
         df = load_data(data_url='https://raw.githubusercontent.com/campusx-official/jupyter-masterclass/main/tweet_emotions.csv')
     except Exception as e:
-        print(f"🔴 Failed to load data: {e}")
+        print(f"Failed to load data: {e}")
         return
 
     try:
         final_df = preprocessed_data(df)
     except Exception as e:
-        print(f"🔴 Failed during preprocessing: {e}")
+        print(f"Failed during preprocessing: {e}")
         return
 
     try:
         train_data, test_data = train_test_split(final_df, test_size=test_size, random_state=random_state)
     except Exception as e:
-        print(f"🔴 Failed during train-test split: {e}")
+        print(f"Failed during train-test split: {e}")
         return
 
     try:
         save_data(data_path='data', train_data=train_data, test_data=test_data)
     except Exception as e:
-        print(f"🔴 Failed to save data: {e}")
+        print(f"Failed to save data: {e}")
         return
 
-    print("✅ Data processing pipeline completed successfully.")
+    print("Data processing pipeline completed successfully.")
 
 
 if __name__ == '__main__':
