@@ -104,7 +104,7 @@ def train_gradient_model(X_train: np.ndarray, y_train: np.ndarray,
 
 
 # save the model in model.pkl file.
-def save_model(model: GradientBoostingClassifier, output_path: str = 'model.pkl') -> None:
+def save_model(model: GradientBoostingClassifier, output_path: str = 'models/model.pkl') -> None:
     """
     Saves the trained model to the specified path using pickle.
 

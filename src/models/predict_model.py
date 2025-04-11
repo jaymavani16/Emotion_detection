@@ -32,7 +32,7 @@ def test_data_splitting(test_data: pd.DataFrame) -> tuple:
 
 
 # loading our model.
-def load_model(output_path: str = 'model.pkl') -> GradientBoostingClassifier:
+def load_model(output_path: str = 'models/model.pkl') -> GradientBoostingClassifier:
     try:
         with open(output_path, 'rb') as file:
             model = pickle.load(file)
@@ -86,7 +86,7 @@ def dump_json(
     precision: float,
     recall: float,
     auc: float,
-    output_path: str = 'metrics.json'
+    output_path: str = 'reports/metrics.json'
 ) -> dict[str, float]:
     metrics_dict = {
         'accuracy': accuracy,

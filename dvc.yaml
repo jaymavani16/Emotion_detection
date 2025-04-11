@@ -33,11 +33,11 @@ stages:
     - train_model.n_estimators
     - train_model.learning_rate
     outs:
-    - model.pkl
+    - models/model.pkl
   model_evaluation:
     cmd: python src/models/predict_model.py
     deps:
     - data/features
     - src/models/predict_model.py
     outs:
-    - metrics.json
+    - reports/metrics.json
